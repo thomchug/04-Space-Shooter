@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Battle in the Stars.ogg-6e19c37b0f8f91509b8b947db26eaad9.oggstr"
+
+[deps]
+
+source_file="res://Assets/Bonus/Battle in the Stars.ogg"
+dest_files=[ "res://.import/Battle in the Stars.ogg-6e19c37b0f8f91509b8b947db26eaad9.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,112 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Assets/PNG/space.jpg" type="Texture" id=1]
+[ext_resource path="res://Scripts/Ship.gd" type="Script" id=2]
+[ext_resource path="res://Assets/PNG/playerShip1_orange.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Enemies.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/HUD.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Lasers.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/Comets.gd" type="Script" id=7]
+[ext_resource path="res://Assets/Bonus/Battle in the Stars.ogg" type="AudioStream" id=9]
+
+[node name="Game" type="Node2D"]
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Background"]
+position = Vector2( -5.27417, 1.75812 )
+scale = Vector2( 1.06959, 1.35006 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="space" type="Sprite" parent="Background/Sprite"]
+scale = Vector2( 1.07914, 1.34478 )
+centered = false
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+margin_left = -8.79041
+margin_right = 1028.21
+margin_bottom = 611.0
+color = Color( 0, 0, 0, 0.517647 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lasers" type="Node2D" parent="."]
+script = ExtResource( 6 )
+
+[node name="Timer" type="Timer" parent="Lasers"]
+one_shot = true
+
+[node name="Enemy Lasers" type="Node2D" parent="."]
+
+[node name="Ship" type="KinematicBody2D" parent="."]
+position = Vector2( 457.986, 528.417 )
+scale = Vector2( 0.5, 0.5 )
+collision_mask = 15
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Ship"]
+position = Vector2( -10.6588, -15.726 )
+scale = Vector2( 0.487038, 0.580639 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ship"]
+position = Vector2( -10.6588, -15.726 )
+scale = Vector2( 0.487038, 0.580639 )
+polygon = PoolVector2Array( 12.5, -34.9, 16.2, -14.5, 17.1, -14.5, 35.8, -2.7, 42.6, -10.5, 49.3, -10.5, 49.5, 24.7, 46.6, 29.5, 42.7, 29.5, 39.7, 26.5, 16.4, 31.2, 11.9, 37.5, -12.2, 37.5, -18.4, 30.5, -22.8, 30.5, -39.8, 25.5, -45.2, 29.8, -47.5, 28.8, -47.5, 27.3, -49.5, 25.3, -49.5, -9.5, -48.9, -9.5, -41.5, -10.9, -41.5, -8.4, -35.9, -3.5, -17.5, -12.8, -12.5, -34.9, -12.5, -37.5, 12.5, -37.5 )
+
+[node name="Comets" type="Node2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="Timer" type="Timer" parent="Comets"]
+autostart = true
+
+[node name="Enemies" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="Timer" type="Timer" parent="Enemies"]
+
+[node name="Explosion" type="Node2D" parent="."]
+
+[node name="HUD" type="Node2D" parent="."]
+script = ExtResource( 5 )
+
+[node name="Health" type="Label" parent="HUD"]
+margin_left = 22.9116
+margin_top = 11.4558
+margin_right = 68.9116
+margin_bottom = 25.4558
+text = "Health:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="HUD"]
+margin_left = 930.782
+margin_top = 12.8878
+margin_right = 976.782
+margin_bottom = 26.8878
+text = "Score:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+autoplay = true
+[connection signal="timeout" from="Lasers/Timer" to="Lasers" method="_on_Timer_timeout"]
+[connection signal="health_lost" from="Ship" to="HUD" method="_on_Ship_health_lost"]
+[connection signal="score_gained" from="Ship" to="HUD" method="_on_Ship_score_gained"]
+[connection signal="timeout" from="Comets/Timer" to="Comets" method="_on_Timer_timeout"]
+[connection signal="timeout" from="Enemies/Timer" to="Enemies" method="_on_Timer_timeout"]

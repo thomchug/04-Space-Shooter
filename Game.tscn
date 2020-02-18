@@ -1,7 +1,0 @@
-[gd_scene format=2]
-
-[node name="Game" type="Node2D"]
-
-[node name="Ship" type="KinematicBody2D" parent="."]
-
-[node name="Sprite" type="Sprite" parent="Ship"]
